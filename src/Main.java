@@ -1,37 +1,30 @@
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         Mediator mediator = new Mediator();
-        Client client1 = new Client(mediator);
-        Client client2 = new Client(mediator);
-        Client client3 = new Client(mediator);
-        Client client4 = new Client(mediator);
+        List<Client> clientList = new ArrayList<>();
+        int n = 5;
 
-        mediator.addClient(client1);
-        mediator.addClient(client2);
-        mediator.addClient(client3);
-        mediator.addClient(client4);
+        for (int i = 0; i < n; i++) {
+            clientList.add(new Client(mediator));
+        }
 
-        client1.sendMessage("Hi from 1");
-        client2.sendMessage("Bye from 2");
-        client3.sendMessage("Hi from 3");
-        client4.sendMessage("Bye from 4");
+        for (int i = 0; i < n; i++) {
+            mediator.addClient(clientList.get(i));
+        }
 
-        System.out.println("Client 1 messages");
-        System.out.println("-----------------");
-        client1.printMessageList();
-        System.out.println("-----------------");
-        System.out.println("Client 2 messages");
-        System.out.println("-----------------");
-        client2.printMessageList();
-        System.out.println("-----------------");
-        System.out.println("Client 3 messages");
-        System.out.println("-----------------");
-        client3.printMessageList();
-        System.out.println("-----------------");
-        System.out.println("Client 4 messages");
-        System.out.println("-----------------");
-        client4.printMessageList();
-        System.out.println("-----------------");
+        clientList.get(0).sendMessage("Hi from 1");
+        clientList.get(1).sendMessage("Bye from 2");
+        clientList.get(2).sendMessage("Hi from 3");
+        clientList.get(3).sendMessage("Bye from 4");
+
+        for (int i = 0; i < n; i++) {
+            System.out.println("Client " + (i + 1) + " messages");
+            System.out.println("-----------------");
+            clientList.get(i).printMessageList();
+            System.out.println("-----------------");
+        }
     }
 }
